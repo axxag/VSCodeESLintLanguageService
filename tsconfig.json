@@ -1,18 +1,16 @@
 {
-    "extends": "@manuth/tsconfig/recommended",
-    "compileOnSave": true,
-    "compilerOptions": {
-        "rootDir": "./src",
-        "outDir": "./lib",
-        "module": "commonjs",
-        "lib": [
-            "es7"
-        ],
-        "plugins": [
-            {
-                "name": "typescript-tslint-plugin"
-            }
-        ],
-        "target": "es6"
-    }
+  "extends": "@manuth/tsconfig/recommended",
+  "compileOnSave": true,
+  "compilerOptions": {
+    "rootDir": "./src",
+    "outDir": "./dist",
+    "module": "commonjs",
+    "lib": ["es7"],
+    "plugins": [
+      {
+        "name": "typescript-tslint-plugin"
+      }
+    ],
+    "target": "es6"
+  }
 }

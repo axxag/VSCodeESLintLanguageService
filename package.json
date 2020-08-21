@@ -1,7 +1,7 @@
 {
   "name": "eslint-language-service",
   "displayName": "ESLint Language Service",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "A VSCode-Extension that provides ESLint support using typescript-eslint-plugin",
   "markdownDescription": "A VSCode-Extension that provides ESLint support using `typescript-eslint-plugin`",
   "author": "Manuel Thalmann <m@nuth.ch>",
@@ -19,8 +19,8 @@
   "categories": [
     "Other"
   ],
-  "main": "lib/index.js",
-  "types": "lib/index.d.ts",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "repository": {
     "type": "git",
     "url": "https://github.com/manuth/VSCodeESLintLanguageService.git"
@@ -33,16 +33,17 @@
     "vscode": "^1.43.0"
   },
   "scripts": {
-    "vscode:prepublish": "npm run rebuild",
-    "build": "tsc -p .",
-    "rebuild": "npm run clean && npm run build",
-    "watch": "npm run build -- --watch",
-    "clean": "rimraf ./lib",
+    "build": "webpack --mode production",
+    "clean": "rimraf ./dist",
     "lint": "tslint -p . -t verbose",
-    "prepare": "npm run rebuild"
+    "prepare": "npm run rebuild",
+    "rebuild": "npm run clean && npm run build",
+    "vscode:prepublish": "npm run rebuild",
+    "test-compile": "tsc -p ./",
+    "watch": "webpack --mode development --watch"
   },
   "dependencies": {
-    "typescript-eslint-plugin": "^1.2.1"
+    "typescript-eslint-plugin": "1.2.1"
   },
   "devDependencies": {
     "@manuth/tsconfig": "^1.2.2",
@@ -50,10 +51,13 @@
     "@types/node": "^14.0.1",
     "@types/vscode": "^1.43.0",
     "rimraf": "^3.0.2",
+    "ts-loader": "^8.0.2",
     "tslint": "^6.1.2",
     "typescript": "^3.9.2",
     "typescript-tslint-plugin": "^0.5.5",
-    "vsce": "^1.75.0"
+    "vsce": "1.75.0",
+    "webpack": "^4.44.1",
+    "webpack-cli": "^3.3.12"
   },
   "activationEvents": [
     "onLanguage:javascript",
