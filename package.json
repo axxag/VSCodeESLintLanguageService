@@ -30,127 +30,7 @@
   "engines": {
     "vscode": "^1.43.0"
   },
-  "activationEvents": [
-    "onLanguage:javascript",
-    "onLanguage:javascriptreact",
-    "onLanguage:typescript",
-    "onLanguage:typescriptreact"
-  ],
   "main": "./dist/index.js",
-  "contributes": {
-    "jsonValidation": [
-      {
-        "fileMatch": "eslint.json",
-        "url": "http://json.schemastore.org/eslint"
-      },
-      {
-        "fileMatch": "jsconfig*.json",
-        "url": "./schemas/tsconfig.schema.json"
-      },
-      {
-        "fileMatch": "tsconfig*.json",
-        "url": "./schemas/tsconfig.schema.json"
-      }
-    ],
-    "problemPatterns": [
-      {
-        "name": "eslint4",
-        "regexp": "^(\\(\\S*\\)\\s+)?(\\S.*)\\[(\\d+), (\\d+)\\]:\\s+(.*)$",
-        "file": 2,
-        "line": 3,
-        "column": 4,
-        "message": 5
-      },
-      {
-        "name": "eslint5",
-        "regexp": "^(WARNING|ERROR):(\\s+\\(\\S*\\))?\\s+(\\S.*)(:|\\[)(\\d+)(:|, )(\\d+)(\\]:\\s+|\\s+-\\s+)(.*)$",
-        "severity": 1,
-        "file": 3,
-        "line": 5,
-        "column": 7,
-        "message": 9
-      }
-    ],
-    "problemMatchers": [
-      {
-        "name": "eslint4",
-        "label": "eslint (version 4) warnings",
-        "owner": "eslint",
-        "source": "eslint",
-        "applyTo": "closedDocuments",
-        "fileLocation": "absolute",
-        "severity": "warning",
-        "pattern": "$eslint4"
-      },
-      {
-        "name": "eslint5",
-        "owner": "eslint",
-        "source": "eslint",
-        "label": "eslint (version 5) warnings",
-        "applyTo": "closedDocuments",
-        "fileLocation": "absolute",
-        "severity": "warning",
-        "pattern": "$eslint5"
-      }
-    ],
-    "typescriptServerPlugins": [
-      {
-        "name": "typescript-eslint-plugin",
-        "enableForWorkspaceTypeScriptVersions": true
-      }
-    ],
-    "configuration": {
-      "type": "object",
-      "title": "ESLint",
-      "properties": {
-        "eslint.jsEnable": {
-          "type": "boolean",
-          "description": "Control whether eslint is enabled for JavaScript files or not."
-        },
-        "eslint.configFile": {
-          "type": "string",
-          "description": "The path to the rules configuration file"
-        },
-        "eslint.ignoreDefinitionFiles": {
-          "type": "boolean",
-          "description": "Control if TypeScript definition files should be ignored."
-        },
-        "eslint.exclude": {
-          "description": "A glob or an array of globs. Any file matching these globs will not be linted.",
-          "anyOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
-            }
-          ]
-        },
-        "eslint.alwaysShowRuleFailuresAsWarnings": {
-          "type": "boolean",
-          "description": "Always show rule failures as warnings, independent of the eslint configuration.",
-          "default": true
-        },
-        "eslint.suppressWhileTypeErrorsPresent": {
-          "type": "boolean",
-          "description": "Always show rule failures as warnings, independent of the eslint configuration."
-        },
-        "eslint.packageManager": {
-          "type": "string",
-          "enum": [
-            "yarn",
-            "pyarn",
-            "yarn"
-          ],
-          "default": "yarn",
-          "description": "The package manager you use to install node modules."
-        }
-      }
-    }
-  },
   "scripts": {
     "build": "webpack --mode production",
     "clean": "rimraf ./dist",
@@ -174,5 +54,167 @@
     "vsce": "1.75.0",
     "webpack": "^4.44.1",
     "webpack-cli": "^3.3.12"
+  },
+  "activationEvents": [
+    "onLanguage:javascript",
+    "onLanguage:javascriptreact",
+    "onLanguage:typescript",
+    "onLanguage:typescriptreact"
+  ],
+  "contributes": {
+    "typescriptServerPlugins": [
+      {
+        "name": "typescript-eslint-plugin",
+        "enableForWorkspaceTypeScriptVersions": true
+      }
+    ],
+    "languages": [
+      {
+        "id": "ignore",
+        "filenames": [
+          ".eslintignore"
+        ]
+      },
+      {
+        "id": "jsonc",
+        "filenames": [
+          ".eslintrc.json"
+        ]
+      },
+      {
+        "id": "jsc",
+        "filenames": [
+          ".eslintrc.js"
+        ]
+      }
+    ],
+    "jsonValidation": [
+      {
+        "fileMatch": ".eslintrc",
+        "url": "https://json.schemastore.org/eslintrc"
+      },
+      {
+        "fileMatch": ".eslintrc.json",
+        "url": "https://json.schemastore.org/eslintrc"
+      },
+      {
+        "fileMatch": ".eslintrc.js",
+        "url": "https://json.schemastore.org/eslintrc"
+      },
+      {
+        "fileMatch": "package.json",
+        "url": "./schemas/eslint.package.json"
+      },
+      {
+        "fileMatch": "jsconfig*.json",
+        "url": "./schemas/tsconfig.schema.json"
+      },
+      {
+        "fileMatch": "tsconfig*.json",
+        "url": "./schemas/tsconfig.schema.json"
+      }
+    ],
+    "configuration": [
+      {
+        "title": "ESLint Language Service",
+        "properties": {
+          "eslint-service.ignoreJavaScript": {
+            "type": "boolean",
+            "default": false,
+            "scope": "window",
+            "description": "Controls whether javascript-files should be ignored."
+          },
+          "eslint-service.ignoreTypeScript": {
+            "type": "boolean",
+            "default": false,
+            "scope": "window",
+            "description": "Controls whether typescript-files should be ignored."
+          },
+          "eslint-service.allowInlineConfig": {
+            "type": "boolean",
+            "default": true,
+            "scope": "window",
+            "description": "Controls whether inline eslint-comments are processed.",
+            "markdownDescription": "Controls whether inline `eslint`-comments are processed."
+          },
+          "eslint-service.reportUnusedDisableDirectives": {
+            "type": "boolean",
+            "default": true,
+            "scope": "window",
+            "description": "Controls whether useless eslint-disable-next-line comments are detected.",
+            "markdownDescription": "Controls whether useless `eslint-disable-next-line` comments are detected."
+          },
+          "eslint-service.useEslintrc": {
+            "type": "boolean",
+            "default": true,
+            "scope": "window",
+            "description": "Controls whether .eslintrc.*-files are processed.",
+            "markdownDescription": "Controls whether `.eslintrc.*`-files are processed."
+          },
+          "eslint-service.configFile": {
+            "type": "string",
+            "scope": "window",
+            "description": "The path to a custom eslintrc-configuration to load.",
+            "markdownDescription": "The path to a custom `eslintrc`-configuration to load."
+          },
+          "eslint-service.alwaysShowRuleFailuresAsWarnings": {
+            "type": "boolean",
+            "default": false,
+            "scope": "window",
+            "description": "Controls whether all rule-failures, regardless whether the rules are set to warn or error, should be reported as warnings.",
+            "markdownDescription": "Controls whether all rule-failures, regardless whether the rules are set to `warn` or `error`, should be reported as warnings."
+          },
+          "eslint-service.suppressWhileTypeErrorsPresent": {
+            "type": "boolean",
+            "default": false,
+            "scope": "window",
+            "description": "Controls whether eslint-reports should be suppressed when there are other errors present."
+          },
+          "eslint-service.suppressDeprecationWarnings": {
+            "type": "boolean",
+            "default": false,
+            "scope": "window",
+            "description": "Controls whether warnings about the use of deprecated rules should be suppressed."
+          },
+          "eslint-service.packageManager": {
+            "type": "string",
+            "default": "npm",
+            "scope": "window",
+            "enum": [
+              "npm",
+              "pnpm",
+              "yarn"
+            ],
+            "description": "The package-manager to load global modules.",
+            "enumDescriptions": [
+              "Indicates the Node Package Manager.",
+              "Indicates the pnpm Package Manager.",
+              "Indicates the yarn Package Manager."
+            ],
+            "markdownEnumDescriptions": [
+              "Indicates the Node Package Manager.",
+              "Indicates the `pnpm` Package Manager.",
+              "Indicates the `yarn` Package Manager."
+            ]
+          },
+          "eslint-service.logLevel": {
+            "type": "string",
+            "default": "none",
+            "scope": "window",
+            "enum": [
+              "none",
+              "normal",
+              "verbose"
+            ],
+            "description": "The level of logging.",
+            "enumDescriptions": [
+              "Disables logging.",
+              "Logs information-messages.",
+              "Logs all messages."
+            ]
+          }
+        }
+      }
+    ]
   }
 }
