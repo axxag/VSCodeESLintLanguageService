@@ -1,16 +1,13 @@
 {
-  "extends": "@manuth/tsconfig/recommended",
-  "compileOnSave": true,
   "compilerOptions": {
-    "rootDir": "./src",
-    "outDir": "./dist",
     "module": "commonjs",
-    "lib": ["es7"],
-    "plugins": [
-      {
-        "name": "typescript-tslint-plugin"
-      }
-    ],
-    "target": "es6"
-  }
+    "target": "es2016",
+    "jsx": "preserve",
+    "strict": true,
+    "noUnusedLocals": true,
+    "outDir": "./dist",
+    "sourceMap": true
+  },
+  "include": ["./src/**/*.ts"],
+  "exclude": ["node_modules", "**/node_modules/*"]
 }
